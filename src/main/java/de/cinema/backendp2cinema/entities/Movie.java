@@ -1,26 +1,36 @@
-package de.backendP2cinema.entities;
+package de.cinema.backendp2cinema.entities;
 
-import javax.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 import java.util.UUID;
+
 
 @Entity
 @Table(name = "movie")
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(name = "title")
     private String title;
 
-    @Column(name = "jahr")
-    private int jahr;
+    @Column(name = "year")
+    private int year;
+
 
     //Constructor
-    public Movie(String title, int jahr) {
+    public Movie() {
+
+    }
+
+    public Movie(String title, int year) {
         this.title = title;
-        this.jahr = jahr;
+        this.year = year;
     }
 
     //Getter and Setter
@@ -40,11 +50,11 @@ public class Movie {
         this.title = title;
     }
 
-    public int getJahr() {
-        return jahr;
+    public int getYear() {
+        return year;
     }
 
-    public void setJahr(int jahr) {
-        this.jahr = jahr;
+    public void setYear(int year) {
+        this.year = year;
     }
 }

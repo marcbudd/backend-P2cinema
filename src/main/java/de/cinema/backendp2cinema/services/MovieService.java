@@ -17,7 +17,6 @@ public class MovieService {
     @Autowired
     public MovieService(MovieRepository movieRepository){
         this.movieRepository = movieRepository;
-        this.addMovie(new Movie("James Bond", 1999));
     }
 
     public Movie addMovie(Movie movie) {

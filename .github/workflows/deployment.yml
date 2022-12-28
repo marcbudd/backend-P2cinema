@@ -4,24 +4,30 @@ on:
     branch:
       - main
 
-#jobs:
-#  build-and-deploy:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Set up JDK 17
-#        uses: actions/setup-java@v1
-#        with:
-#          java-version: 17
-#      - name: Build with Maven
-#        run: mvn package
-#      - name: Deploy to Linux VM
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.HOST }}
-#          username: ${{ secrets.USERNAME }}
-#          password: ${{ secrets.PASSWORD }}
-#          script: |
-#            cd ${{ secrets.TARGET }}
-#            git pull
+jobs:
+  build-and-deploy:
+    name: Backend Deployment to Linux VM
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+
+      - name: Build with Maven
+        run: |
+          mvn clean package
+
+      - name: copy file to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          target: ${{ secrets.TARGET }}
+          source: "./target/*"
+          strip_components: 1
 

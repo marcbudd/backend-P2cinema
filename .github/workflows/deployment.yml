@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: copy file to server
+      - name: update and start project
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}

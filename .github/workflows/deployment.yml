@@ -19,7 +19,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            kill $(lsof -t -i:8080)
+            kill -9 $(lsof -t -i:8080)
             cd ${{ secrets.TARGET }}
             cd backend-P2cinema
             git pull

@@ -1,6 +1,6 @@
 package de.cinema.backendp2cinema.services;
 
-import de.cinema.backendp2cinema.entities.Movie;
+import de.cinema.backendp2cinema.entities.Film;
 import de.cinema.backendp2cinema.exceptions.MovieNotFoundException;
 import de.cinema.backendp2cinema.repositories.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +19,16 @@ public class MovieService {
         this.movieRepository = movieRepository;
     }
 
-    public Movie addMovie(Movie movie) {
+    public Film addMovie(Film movie) {
         return movieRepository.save(movie);
 
     }
 
-    public List<Movie> getAllMovies() {
-        return (List<Movie>) movieRepository.findAll();
+    public List<Film> getAllMovies() {
+        return (List<Film>) movieRepository.findAll();
     }
 
-    public Movie findMovieById(UUID id) {
+    public Film findMovieById(UUID id) {
         return movieRepository.findById(id).orElseThrow(()-> new MovieNotFoundException("Movie with id " + id + " not found"));
     }
 

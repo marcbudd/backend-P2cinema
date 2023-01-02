@@ -29,7 +29,7 @@ public class FilmService {
     }
 
     public Film findFilmById(UUID id) {
-        return filmRepository.findById(id).orElseThrow(()-> new FilmNotFoundException("Movie with id " + id + " not found"));
+        return filmRepository.findById(id).orElseThrow(()-> new FilmNotFoundException(id));
     }
 
     public void delete(UUID id) {

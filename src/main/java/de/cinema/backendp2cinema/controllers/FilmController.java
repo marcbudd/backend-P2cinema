@@ -1,6 +1,5 @@
 package de.cinema.backendp2cinema.controllers;
 
-
 import de.cinema.backendp2cinema.entities.Film;
 import de.cinema.backendp2cinema.services.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/movie")
+@RequestMapping("/film")
 public class FilmController {
 
     private final FilmService filmService;
@@ -22,28 +21,28 @@ public class FilmController {
         this.filmService = filmService;
     }
 
-    //Return all movies
+    //alle Filme wiedergeben
     @GetMapping
     public ResponseEntity<List<Film>> findAll(){
         List<Film> filme = filmService.getAllFilme();
         return new ResponseEntity<>(filme, HttpStatus.OK);
     }
 
-    //Return movie by id
+    //Film nach ID wiedergeben
     @GetMapping("/find/{id}")
     public ResponseEntity<Film> findById(@PathVariable("id") UUID id) {
         Film film = filmService.findFilmById(id);
         return new ResponseEntity<>(film, HttpStatus.OK);
     }
 
-    //save movie
+    //Film speichern
     @PostMapping("/add")
     public ResponseEntity<Film> save(@RequestBody Film movie){
         Film neuerFilm = filmService.addFilm(movie);
         return new ResponseEntity<>(neuerFilm, HttpStatus.CREATED);
     }
 
-    //update movie
+    //Film ändern
     @PutMapping("/update/{id}")
     public ResponseEntity<Film> update(@PathVariable("id") UUID id, @RequestBody Film movie) {
         Film updatedFilm = filmService.findFilmById(id);
@@ -54,13 +53,12 @@ public class FilmController {
 
     }
 
-    //delete movie by id
+    //Film nach ID löschen
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         filmService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 
 }
 

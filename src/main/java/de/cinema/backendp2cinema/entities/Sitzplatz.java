@@ -52,6 +52,13 @@ public class Sitzplatz {
     }
 
     //Getter und Setter
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public Saal getSaal() {
         return saal;

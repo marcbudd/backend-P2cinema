@@ -1,7 +1,6 @@
 package de.cinema.backendp2cinema.controllers;
 
 
-import de.cinema.backendp2cinema.entities.Film;
 import de.cinema.backendp2cinema.entities.Kino;
 import de.cinema.backendp2cinema.exceptions.KinoNotFoundException;
 import de.cinema.backendp2cinema.repositories.KinoRepository;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
@@ -59,8 +57,8 @@ public class KinoController {
         Optional<Kino> toUpdate = kinoRepository.findById(id);
 
         try {
-            UUID currentMovieID = toUpdate.get().getId();
-            kino.setId(currentMovieID);
+            UUID kinoId = toUpdate.get().getId();
+            kino.setId(kinoId);
             kinoRepository.save(kino);
             return new ResponseEntity<>(kino, HttpStatus.OK);
 
@@ -74,12 +72,12 @@ public class KinoController {
     //Film nach ID löschen
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> delete(@PathVariable UUID id) {
-        Optional<Kino> o = kinoRepository.findById(id);
+        Optional<Kino> toDelete = kinoRepository.findById(id);
         try {
-            kinoRepository.deleteById(o.get().getId());
+            kinoRepository.deleteById(toDelete.get().getId());
             return new ResponseEntity<>(id, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity<Object>(new KinoNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new KinoNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

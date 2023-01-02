@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.UUID;
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class FilmNotFoundException extends RuntimeException {
+public class FilmNotFoundException extends Exception {
 
     public FilmNotFoundException(UUID id) {
         super("Movie with id \"" + id + "\" not found!");

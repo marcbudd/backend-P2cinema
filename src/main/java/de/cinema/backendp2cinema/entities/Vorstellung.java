@@ -16,10 +16,15 @@ public class Vorstellung {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne
     @NotFound(action= NotFoundAction.IGNORE)
-    @JoinColumn(name = "kino", referencedColumnName = "id")
+    @JoinColumn(name = "film", referencedColumnName = "id")
     private Film film;
+
+    @ManyToOne
+    @NotFound(action= NotFoundAction.IGNORE)
+    @JoinColumn(name = "saal", referencedColumnName = "id")
+    private Saal saal;
 
     @Column(name = "zeit")
     private Time zeit;

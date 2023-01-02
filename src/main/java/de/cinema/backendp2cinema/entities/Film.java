@@ -36,7 +36,7 @@ public class Film {
     private Date startDatum;
 
     @Column(name = "endDatum")
-    private Date endDaum;
+    private Date endDatum;
 
 
     //Constructor
@@ -51,7 +51,7 @@ public class Film {
         this.fsk = fsk;
         this.ueberlaenge = ueberlaenge;
         this.startDatum = startDatum;
-        this.endDaum = endDaum;
+        this.endDatum = endDaum;
     }
 
     //Getter and Setter
@@ -111,11 +111,11 @@ public class Film {
         this.startDatum = startDatum;
     }
 
-    public Date getEndDaum() {
-        return endDaum;
+    public Date getEndDatum() {
+        return endDatum;
     }
 
-    public void setEndDaum(Date endDaum) {
-        this.endDaum = endDaum;
+    public void setEndDatum(Date endDatum) {
+        this.endDatum = endDatum;
     }
 }

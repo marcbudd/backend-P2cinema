@@ -24,7 +24,7 @@ public class KinoController {
         this.kinoRepository = kinoRepository;
     }
 
-    //alle Kinos wiedergeben
+    //alle Kinos zurückgeben
     @GetMapping
     public ResponseEntity<Iterable<Kino>> findAll(){
         
@@ -32,7 +32,7 @@ public class KinoController {
         return new ResponseEntity<>(kinos, HttpStatus.OK);
     }
 
-    //Kino nach ID wiedergeben
+    //Kino nach ID zurückgeben
     @GetMapping("/find/{id}")
     public ResponseEntity<Object> findById(@PathVariable("id") UUID id) {
         Optional<Kino> suche = kinoRepository.findById(id);
@@ -44,14 +44,14 @@ public class KinoController {
         }
     }
 
-    //Film speichern
+    //Kino hinzufügen
     @PostMapping("/add")
     public ResponseEntity<Kino> save(@RequestBody Kino newKino){
         Kino addedKino = kinoRepository.save(newKino);
         return new ResponseEntity<>(addedKino, HttpStatus.CREATED);
     }
 
-    //Film ändern
+    //Kino ändern
     @PutMapping("/update/{id}")
     public ResponseEntity<Object> update(@PathVariable("id") UUID id, @RequestBody Kino kino) {
         Optional<Kino> toUpdate = kinoRepository.findById(id);
@@ -69,12 +69,13 @@ public class KinoController {
 
     }
 
-    //Film nach ID löschen
+    //Kino nach ID löschen
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> delete(@PathVariable UUID id) {
         Optional<Kino> toDelete = kinoRepository.findById(id);
         try {
-            kinoRepository.deleteById(toDelete.get().getId());
+            UUID kinoId = toDelete.get().getId();
+            kinoRepository.deleteById(kinoId);
             return new ResponseEntity<>(id, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(new KinoNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);

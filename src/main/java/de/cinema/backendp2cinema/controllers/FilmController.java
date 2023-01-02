@@ -22,14 +22,14 @@ public class FilmController {
         this.filmRepository = filmRepository;
     }
 
-    //alle Filme wiedergeben
+    //alle Filme zurückgeben
     @GetMapping
     public ResponseEntity<Iterable<Film>> findAll(){
         Iterable<Film> filme = filmRepository.findAll();
         return new ResponseEntity<>(filme, HttpStatus.OK);
     }
 
-    //Film nach ID wiedergeben
+    //Film nach ID zurückgeben
     @GetMapping("/find/{id}")
     public ResponseEntity<Object> findById(@PathVariable("id") UUID id) {
         Optional<Film> suche = filmRepository.findById(id);
@@ -41,7 +41,7 @@ public class FilmController {
         }
     }
 
-    //Film speichern
+    //Film hinzufügen
     @PostMapping("/add")
     public ResponseEntity<Film> save(@RequestBody Film newFilm){
         Film addedFilm = filmRepository.save(newFilm);

@@ -8,7 +8,7 @@ import java.util.UUID;
 
 
 @Entity
-@Table(name = "movie")
+@Table(name = "Movie")
 public class Movie {
 
     @Id
@@ -22,15 +22,28 @@ public class Movie {
     @Column(name = "year")
     private int year;
 
+    @Column(name = "fsk")
+    private int fsk;
+    @Column(name = "duration")
+    private int duration;
+
+
+    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "overlength", referencedColumnName = "id")
+    private Overlength overlength;
 
     //Constructor
     public Movie() {
 
     }
 
-    public Movie(String title, int year) {
+
+    public Movie(String title, int year, int fsk, int duration, Overlength overlength) {
         this.title = title;
         this.year = year;
+        this.fsk = fsk;
+        this.duration = duration;
+        this.overlength = overlength;
     }
 
     //Getter and Setter
@@ -56,5 +69,29 @@ public class Movie {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public int getFsk() {
+        return fsk;
+    }
+
+    public void setFsk(int fsk) {
+        this.fsk = fsk;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public Overlength getOverlength() {
+        return overlength;
+    }
+
+    public void setOverlength(Overlength overlength) {
+        this.overlength = overlength;
     }
 }

@@ -28,8 +28,8 @@ public class SaalController {
     @GetMapping
     public ResponseEntity<Iterable<Saal>> findAll(){
 
-        Iterable<Saal> saals = saalRepository.findAll();
-        return new ResponseEntity<>(saals, HttpStatus.OK);
+        Iterable<Saal> saele = saalRepository.findAll();
+        return new ResponseEntity<>(saele, HttpStatus.OK);
     }
 
     //Saal nach ID zurückgeben

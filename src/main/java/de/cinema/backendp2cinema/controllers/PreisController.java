@@ -3,7 +3,6 @@ package de.cinema.backendp2cinema.controllers;
 
 import de.cinema.backendp2cinema.entities.Preis;
 import de.cinema.backendp2cinema.exceptions.PreisNotFoundException;
-import de.cinema.backendp2cinema.exceptions.KinoNotFoundException;
 import de.cinema.backendp2cinema.repositories.PreisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,7 +59,7 @@ public class PreisController {
             preisRepository.save(preis);
             return new ResponseEntity<>(preis, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new KinoNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new PreisNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
 
     }
@@ -74,7 +73,7 @@ public class PreisController {
             preisRepository.deleteById(preisId);
             return new ResponseEntity<>(id, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new KinoNotFoundException(id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new PreisNotFoundException(id), HttpStatus.NOT_FOUND);
         }
     }
 

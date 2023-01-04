@@ -3,7 +3,6 @@ package de.cinema.backendp2cinema.controllers;
 
 import de.cinema.backendp2cinema.entities.Rolle;
 import de.cinema.backendp2cinema.exceptions.RolleNotFoundException;
-import de.cinema.backendp2cinema.exceptions.KinoNotFoundException;
 import de.cinema.backendp2cinema.repositories.RolleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +25,8 @@ public class RolleController {
     //alle Rollen zurückgeben
     @GetMapping
     public ResponseEntity<Iterable<Rolle>> findAll(){
-        Iterable<Rolle> rollee = rolleRepository.findAll();
-        return new ResponseEntity<>(rollee, HttpStatus.OK);
+        Iterable<Rolle> rollen = rolleRepository.findAll();
+        return new ResponseEntity<>(rollen, HttpStatus.OK);
     }
 
     //Rolle nach ID zurückgeben
@@ -60,7 +59,7 @@ public class RolleController {
             rolleRepository.save(rolle);
             return new ResponseEntity<>(rolle, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new KinoNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new RolleNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
 
     }
@@ -74,7 +73,7 @@ public class RolleController {
             rolleRepository.deleteById(rolleId);
             return new ResponseEntity<>(id, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new KinoNotFoundException(id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new RolleNotFoundException(id), HttpStatus.NOT_FOUND);
         }
     }
 

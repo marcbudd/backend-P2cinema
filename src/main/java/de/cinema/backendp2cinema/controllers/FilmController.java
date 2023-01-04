@@ -1,5 +1,6 @@
 package de.cinema.backendp2cinema.controllers;
 
+
 import de.cinema.backendp2cinema.entities.Film;
 import de.cinema.backendp2cinema.exceptions.FilmNotFoundException;
 import de.cinema.backendp2cinema.exceptions.KinoNotFoundException;
@@ -59,7 +60,7 @@ public class FilmController {
             filmRepository.save(film);
             return new ResponseEntity<>(film, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new KinoNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new FilmNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
 
     }
@@ -73,7 +74,7 @@ public class FilmController {
             filmRepository.deleteById(filmId);
             return new ResponseEntity<>(id, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new KinoNotFoundException(id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new FilmNotFoundException(id), HttpStatus.NOT_FOUND);
         }
     }
 

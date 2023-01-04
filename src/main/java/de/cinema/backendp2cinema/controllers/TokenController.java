@@ -3,7 +3,6 @@ package de.cinema.backendp2cinema.controllers;
 
 import de.cinema.backendp2cinema.entities.Token;
 import de.cinema.backendp2cinema.exceptions.TokenNotFoundException;
-import de.cinema.backendp2cinema.exceptions.KinoNotFoundException;
 import de.cinema.backendp2cinema.repositories.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +25,8 @@ public class TokenController {
     //alle Tokens zurückgeben
     @GetMapping
     public ResponseEntity<Iterable<Token>> findAll(){
-        Iterable<Token> tokene = tokenRepository.findAll();
-        return new ResponseEntity<>(tokene, HttpStatus.OK);
+        Iterable<Token> token = tokenRepository.findAll();
+        return new ResponseEntity<>(token, HttpStatus.OK);
     }
 
     //Token nach ID zurückgeben
@@ -60,7 +59,7 @@ public class TokenController {
             tokenRepository.save(token);
             return new ResponseEntity<>(token, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new KinoNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new TokenNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
 
     }
@@ -74,7 +73,7 @@ public class TokenController {
             tokenRepository.deleteById(tokenId);
             return new ResponseEntity<>(id, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new KinoNotFoundException(id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new TokenNotFoundException(id), HttpStatus.NOT_FOUND);
         }
     }
 

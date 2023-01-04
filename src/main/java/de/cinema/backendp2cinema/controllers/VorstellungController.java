@@ -1,4 +1,6 @@
 package de.cinema.backendp2cinema.controllers;
+
+
 import de.cinema.backendp2cinema.entities.Vorstellung;
 import de.cinema.backendp2cinema.exceptions.VorstellungNotFoundException;
 import de.cinema.backendp2cinema.repositories.VorstellungRepository;
@@ -29,8 +31,8 @@ public class VorstellungController {
     @GetMapping
     public ResponseEntity<Iterable<Vorstellung>> findAll(){
 
-        Iterable<Vorstellung> vorstellung = vorstellungRepository.findAll();
-        return new ResponseEntity<>(vorstellung, HttpStatus.OK);
+        Iterable<Vorstellung> vorstellungen = vorstellungRepository.findAll();
+        return new ResponseEntity<>(vorstellungen, HttpStatus.OK);
     }
 
     //Vorstellung nach ID zurückgeben

@@ -3,7 +3,6 @@ package de.cinema.backendp2cinema.controllers;
 
 import de.cinema.backendp2cinema.entities.Benutzer;
 import de.cinema.backendp2cinema.exceptions.BenutzerNotFoundException;
-import de.cinema.backendp2cinema.exceptions.KinoNotFoundException;
 import de.cinema.backendp2cinema.repositories.BenutzerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +25,8 @@ public class BenutzerController {
     //alle Benutzer zurückgeben
     @GetMapping
     public ResponseEntity<Iterable<Benutzer>> findAll(){
-        Iterable<Benutzer> benutzere = benutzerRepository.findAll();
-        return new ResponseEntity<>(benutzere, HttpStatus.OK);
+        Iterable<Benutzer> benutzer = benutzerRepository.findAll();
+        return new ResponseEntity<>(benutzer, HttpStatus.OK);
     }
 
     //Benutzer nach ID zurückgeben
@@ -60,7 +59,7 @@ public class BenutzerController {
             benutzerRepository.save(benutzer);
             return new ResponseEntity<>(benutzer, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new KinoNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new BenutzerNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
 
     }
@@ -74,7 +73,7 @@ public class BenutzerController {
             benutzerRepository.deleteById(benutzerId);
             return new ResponseEntity<>(id, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new KinoNotFoundException(id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new BenutzerNotFoundException(id), HttpStatus.NOT_FOUND);
         }
     }
 

@@ -1,4 +1,6 @@
 package de.cinema.backendp2cinema.controllers;
+
+
 import de.cinema.backendp2cinema.entities.Vorstellungsplatz;
 import de.cinema.backendp2cinema.exceptions.VorstellungsplatzNotFoundException;
 import de.cinema.backendp2cinema.repositories.VorstellungsplatzRepository;

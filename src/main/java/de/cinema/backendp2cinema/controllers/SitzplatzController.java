@@ -1,6 +1,5 @@
 package de.cinema.backendp2cinema.controllers;
 
-
 import de.cinema.backendp2cinema.entities.Sitzplatz;
 import de.cinema.backendp2cinema.exceptions.SitzplatzNotFoundException;
 import de.cinema.backendp2cinema.repositories.SitzplatzRepository;
@@ -28,8 +27,8 @@ public class SitzplatzController {
     @GetMapping
     public ResponseEntity<Iterable<Sitzplatz>> findAll(){
 
-        Iterable<Sitzplatz> sitzplatzs = sitzplatzRepository.findAll();
-        return new ResponseEntity<>(sitzplatzs, HttpStatus.OK);
+        Iterable<Sitzplatz> sitze = sitzplatzRepository.findAll();
+        return new ResponseEntity<>(sitze, HttpStatus.OK);
     }
 
     //Sitzplatz nach ID zurückgeben

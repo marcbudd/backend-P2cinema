@@ -9,7 +9,7 @@ import java.util.UUID;
 public class VorstellungNotFoundException extends Exception {
 
     public VorstellungNotFoundException(UUID id) {
-        super("Screening with id \"" + id + "\" not found!");
+        super("Vorstellung mit ID \\\"\" + id + \"\\\" nicht gefunden!");
     }
 
 }

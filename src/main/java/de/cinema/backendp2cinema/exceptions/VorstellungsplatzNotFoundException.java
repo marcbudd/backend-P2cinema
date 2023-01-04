@@ -9,7 +9,7 @@ import java.util.UUID;
 public class VorstellungsplatzNotFoundException extends Exception {
 
     public VorstellungsplatzNotFoundException(UUID id) {
-        super("Screening seat with id \"" + id + "\" not found!");
+        super("Vorstellungsplatz mit ID \"" + id + "\" nicht gefunden!");
     }
 
 }

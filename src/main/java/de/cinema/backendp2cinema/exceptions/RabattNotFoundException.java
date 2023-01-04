@@ -1,15 +1,15 @@
 package de.cinema.backendp2cinema.exceptions;
 
+import java.util.UUID;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.UUID;
-
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class SaalNotFoundException extends Exception {
+public class RabattNotFoundException extends Exception {
 
-    public SaalNotFoundException(UUID id) {
-        super("Saal mit ID \\\"\" + id + \"\\\" nicht gefunden!");
+    public RabattNotFoundException(UUID id) {
+        super("Discount with id \"" + id + "\" not found!");
     }
 
 }

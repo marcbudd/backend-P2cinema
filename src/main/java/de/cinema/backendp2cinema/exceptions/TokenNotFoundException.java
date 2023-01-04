@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.UUID;
 
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
-public class SaalNotFoundException extends Exception {
+public class TokenNotFoundException extends Exception {
 
-    public SaalNotFoundException(UUID id) {
-        super("Saal mit ID \\\"\" + id + \"\\\" nicht gefunden!");
+    public TokenNotFoundException(UUID id) {
+        super("Token mit ID \"" + id + "\" nicht gefunden!");
     }
 
 }

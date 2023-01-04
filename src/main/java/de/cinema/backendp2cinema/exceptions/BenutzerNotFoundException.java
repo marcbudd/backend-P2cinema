@@ -10,7 +10,7 @@ import java.util.UUID;
 public class BenutzerNotFoundException extends Exception {
 
     public BenutzerNotFoundException(UUID id) {
-        super("User with id \"" + id + "\" not found!");
+        super("Benutzer mit ID \"" + id + "\" nicht gefunden!");
     }
 
 }

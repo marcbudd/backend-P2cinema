@@ -21,12 +21,12 @@ public class Vorstellungsplatz {
     @ManyToOne
     @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "sitzplatz", referencedColumnName = "id")
-    private Saal sitzplatz;
+    private Sitzplatz sitzplatz;
 
     @ManyToOne
     @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "vorstellung", referencedColumnName = "id")
-    private Saal vorstellung;
+    private Vorstellung vorstellung;
 
     @Column(name = "status")
     private VorstellungsplatzStatus status;
@@ -48,7 +48,7 @@ public class Vorstellungsplatz {
 
     }
 
-    public Vorstellungsplatz(Saal sitzplatz, Saal vorstellung, VorstellungsplatzStatus status, UUID ticketId, Preis preis, Rabatt rabatt) {
+    public Vorstellungsplatz(Sitzplatz sitzplatz, Vorstellung vorstellung, VorstellungsplatzStatus status, UUID ticketId, Preis preis, Rabatt rabatt) {
         this.sitzplatz = sitzplatz;
         this.vorstellung = vorstellung;
         this.status = status;
@@ -66,19 +66,19 @@ public class Vorstellungsplatz {
         this.id = id;
     }
 
-    public Saal getSitzplatz() {
+    public Sitzplatz getSitzplatz() {
         return sitzplatz;
     }
 
-    public void setSitzplatz(Saal sitzplatz) {
+    public void setSitzplatz(Sitzplatz sitzplatz) {
         this.sitzplatz = sitzplatz;
     }
 
-    public Saal getVorstellung() {
+    public Vorstellung getVorstellung() {
         return vorstellung;
     }
 
-    public void setVorstellung(Saal vorstellung) {
+    public void setVorstellung(Vorstellung vorstellung) {
         this.vorstellung = vorstellung;
     }
 

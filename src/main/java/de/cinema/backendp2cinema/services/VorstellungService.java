@@ -1,11 +1,13 @@
 package de.cinema.backendp2cinema.services;
 
-import de.cinema.backendp2cinema.entities.Film;
-import de.cinema.backendp2cinema.entities.Vorstellung;
+import de.cinema.backendp2cinema.entities.*;
+import de.cinema.backendp2cinema.enums.VorstellungsplatzStatus;
 import de.cinema.backendp2cinema.exceptions.FilmNotFoundException;
 import de.cinema.backendp2cinema.exceptions.VorstellungNotFoundException;
 import de.cinema.backendp2cinema.repositories.FilmRepository;
+import de.cinema.backendp2cinema.repositories.PreisRepository;
 import de.cinema.backendp2cinema.repositories.VorstellungRepository;
+import de.cinema.backendp2cinema.repositories.VorstellungsplatzRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +26,36 @@ public class VorstellungService {
     @Autowired
     VorstellungRepository vorstellungRepository;
 
+    @Autowired
+    PreisRepository preisRepository;
+
+    @Autowired
+    VorstellungsplatzRepository vorstellungsplatzRepository;
+
     //neue Vorstellung anlegen
     public ResponseEntity<Vorstellung> addNeueVorstellung(Vorstellung neueVorstellung){
         Vorstellung addedVorstellung = vorstellungRepository.save(neueVorstellung);
+
+        //Zugehörige Vorstellungssitze nach Sitzplan erstellen
+        Sitzplan sitzplan = neueVorstellung.getSaal().getSitzplan();
+        List<Sitzplatz> sitzList = sitzplan.getSitzList();
+        for (Sitzplatz sitz: sitzList){
+            Preis preis = null;
+            Optional<Preis> optionalPreis = preisRepository.findBySitzplatzkategorie(sitz.getSitzplatzkategorie());
+            if(optionalPreis.isPresent()){
+                preis = optionalPreis.get();
+            }
+
+            Vorstellungsplatz neuerVorstellungsplatz = new Vorstellungsplatz(sitz,
+                    neueVorstellung,
+                    VorstellungsplatzStatus.FREI,
+                    null,
+                    preis,
+                    null);
+
+            vorstellungsplatzRepository.save(neuerVorstellungsplatz);
+        }
+
         return new ResponseEntity<>(addedVorstellung, HttpStatus.CREATED);
     }
 

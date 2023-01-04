@@ -18,18 +18,23 @@ public class Saal {
     @ManyToOne(fetch=FetchType.LAZY)
     @NotFound(action= NotFoundAction.IGNORE)
     @JoinColumn(name = "kino", referencedColumnName = "id")
-    public Kino kino;
+    private Kino kino;
 
     @Column(name = "saalNummer")
     private byte saalNummer;
+
+    @OneToOne
+    @JoinColumn(name = "sitzplan", referencedColumnName = "id")
+    private Sitzplan sitzplan;
 
     public Saal() {
 
     }
 
-    public Saal(Kino kino, byte saalNummer) {
+    public Saal(Kino kino, byte saalNummer, Sitzplan sitzplan) {
         this.kino = kino;
         this.saalNummer = saalNummer;
+        this.sitzplan = sitzplan;
     }
 
     //Getter und Setter
@@ -57,4 +62,11 @@ public class Saal {
         this.saalNummer = saalNummer;
     }
 
+    public Sitzplan getSitzplan() {
+        return sitzplan;
+    }
+
+    public void setSitzplan(Sitzplan sitzplan) {
+        this.sitzplan = sitzplan;
+    }
 }

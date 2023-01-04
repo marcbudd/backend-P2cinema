@@ -25,15 +25,20 @@ public class Benutzer {
     @Column(name = "passwordhash")
     private int passwordHash;
 
+    @ManyToOne
+    @JoinColumn(name = "rolle")
+    private Rolle rolle;
+
     public Benutzer(){
 
     }
 
-    public Benutzer(String firstname, String lastname, String email, int passwordHash) {
+    public Benutzer(String firstname, String lastname, String email, int passwordHash, Rolle rolle) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.passwordHash = passwordHash;
+        this.rolle = rolle;
     }
 
     //Getter und Setter
@@ -67,5 +72,21 @@ public class Benutzer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(int passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public Rolle getRolle() {
+        return rolle;
+    }
+
+    public void setRolle(Rolle rolle) {
+        this.rolle = rolle;
     }
 }

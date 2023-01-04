@@ -18,37 +18,27 @@ public class Sitzplatz {
 
     @ManyToOne
     @NotFound(action= NotFoundAction.IGNORE)
-    @JoinColumn(name = "saal", referencedColumnName = "id")
-    private Saal saal;
+    @JoinColumn(name = "sitzplan", referencedColumnName = "id")
+    private Sitzplan sitzplan;
 
-    @Column(name = "reihe") //Nummer der Reihe in der der Sitzplatz sich befindet
+    @Column(name = "reihe") //Nummer der Reihe in der Sitzplatz sich befindet
     private short reihe;
 
-    @Column(name = "sitzplatzNummer") //Stelle an der sich der Sitzplatz in der Reihe befindet
+    @Column(name = "sitzplatzNummer") //Stelle an der sich der Sitzplatz in der jeweiligen Reihe befindet
     private short sitzplatzNummer;
 
     @Column(name = "sitzplatzkategorie")
     private Sitzplatzkategorie sitzplatzkategorie;
 
-    private boolean aufpreis;
-
     public Sitzplatz() {
 
     }
 
-    public Sitzplatz(Saal saal, short reihe, short sitzplatzNummer, Sitzplatzkategorie sitzplatzkategorie) {
-        this.saal = saal;
+    public Sitzplatz(Sitzplan sitzplan, short reihe, short sitzplatzNummer, Sitzplatzkategorie sitzplatzkategorie) {
+        this.sitzplan = sitzplan;
         this.reihe = reihe;
         this.sitzplatzNummer = sitzplatzNummer;
         this.sitzplatzkategorie = sitzplatzkategorie;
-
-        //falls "normaler" Sitz (Parkett) oder Rollstuhlsitz kein Aufpreis, bei anderer Kategorie Aufpreis
-        if(sitzplatzkategorie == Sitzplatzkategorie.PARKETT || sitzplatzkategorie == Sitzplatzkategorie.ROLLSTUHL){
-            this.aufpreis = false;
-        }
-        else{
-            this.aufpreis = true;
-        }
     }
 
     //Getter und Setter
@@ -60,12 +50,12 @@ public class Sitzplatz {
         this.id = id;
     }
 
-    public Saal getSaal() {
-        return saal;
+    public Sitzplan getSitzplan() {
+        return sitzplan;
     }
 
-    public void setSaal(Saal saal) {
-        this.saal = saal;
+    public void setSitzplan(Sitzplan sitzplan) {
+        this.sitzplan = sitzplan;
     }
 
     public short getReihe() {
@@ -92,11 +82,4 @@ public class Sitzplatz {
         this.sitzplatzkategorie = sitzplatzkategorie;
     }
 
-    public boolean isAufpreis() {
-        return aufpreis;
-    }
-
-    public void setAufpreis(boolean aufpreis) {
-        this.aufpreis = aufpreis;
-    }
 }

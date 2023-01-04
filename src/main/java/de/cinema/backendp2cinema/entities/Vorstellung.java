@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
+import java.sql.Date;
 import java.sql.Time;
 import java.util.UUID;
 
@@ -26,6 +27,9 @@ public class Vorstellung {
     @JoinColumn(name = "saal", referencedColumnName = "id")
     private Saal saal;
 
+    @Column(name = "datum")
+    private Date datum;
+
     @Column(name = "zeit")
     private Time zeit;
 
@@ -42,8 +46,10 @@ public class Vorstellung {
 
     }
 
-    public Vorstellung(Film film, Time zeit, boolean dreiD, boolean ov, boolean untertitel) {
+    public Vorstellung(Film film, Saal saal, Date datum, Time zeit, boolean dreiD, boolean ov, boolean untertitel) {
         this.film = film;
+        this.saal = saal;
+        this.datum = datum;
         this.zeit = zeit;
         this.dreiD = dreiD;
         this.ov = ov;
@@ -65,6 +71,22 @@ public class Vorstellung {
 
     public void setFilm(Film film) {
         this.film = film;
+    }
+
+    public Saal getSaal() {
+        return saal;
+    }
+
+    public void setSaal(Saal saal) {
+        this.saal = saal;
+    }
+
+    public Date getDatum() {
+        return datum;
+    }
+
+    public void setDatum(Date datum) {
+        this.datum = datum;
     }
 
     public Time getZeit() {
@@ -98,4 +120,5 @@ public class Vorstellung {
     public void setUntertitel(boolean untertitel) {
         this.untertitel = untertitel;
     }
+
 }

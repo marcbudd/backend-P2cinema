@@ -17,7 +17,7 @@ import java.util.UUID;
 public class Ticket {
 
     @Id
-    @Column(columnDefinition = "VARBINARY(16)")
+    @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 

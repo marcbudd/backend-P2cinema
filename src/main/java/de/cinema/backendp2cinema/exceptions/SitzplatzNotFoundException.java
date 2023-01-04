@@ -9,7 +9,7 @@ import java.util.UUID;
 public class SitzplatzNotFoundException extends Exception {
 
     public SitzplatzNotFoundException(UUID id) {
-        super("Sitzplatz mit ID \\\"\" + id + \"\\\" nicht gefunden!");
+        super("Sitzplatz mit ID \"" + id + "\" nicht gefunden!");
     }
 
 }

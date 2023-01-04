@@ -31,7 +31,7 @@ public class Vorstellungsplatz {
     @Column(name = "status")
     private VorstellungsplatzStatus status;
 
-    @Column(name = "ticketId", columnDefinition = "VARBINARY(16)")
+    @Column(name = "ticketId")
     private UUID ticketId;
 
     @ManyToOne(fetch=FetchType.LAZY)

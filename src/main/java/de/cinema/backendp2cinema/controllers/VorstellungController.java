@@ -2,6 +2,7 @@ package de.cinema.backendp2cinema.controllers;
 import de.cinema.backendp2cinema.entities.Vorstellung;
 import de.cinema.backendp2cinema.exceptions.VorstellungNotFoundException;
 import de.cinema.backendp2cinema.repositories.VorstellungRepository;
+import de.cinema.backendp2cinema.services.VorstellungService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,12 @@ import java.util.UUID;
 public class VorstellungController {
 
     VorstellungRepository vorstellungRepository;
+    VorstellungService vorstellungService;
 
     @Autowired
-    public VorstellungController(VorstellungRepository vorstellungRepository) {
+    public VorstellungController(VorstellungRepository vorstellungRepository, VorstellungService vorstellungService) {
         this.vorstellungRepository = vorstellungRepository;
+        this.vorstellungService = vorstellungService;
     }
 
     //alle Vorstellungen zurückgeben
@@ -45,8 +48,7 @@ public class VorstellungController {
     //Vorstellung hinzufügen
     @PostMapping("/add")
     public ResponseEntity<Vorstellung> save(@RequestBody Vorstellung newVorstellung){
-        Vorstellung addedVorstellung = vorstellungRepository.save(newVorstellung);
-        return new ResponseEntity<>(addedVorstellung, HttpStatus.CREATED);
+        return vorstellungService.addNeueVorstellung(newVorstellung);
     }
 
     //Vorstellung ändern

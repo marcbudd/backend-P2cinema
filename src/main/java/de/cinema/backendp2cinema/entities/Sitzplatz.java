@@ -24,7 +24,7 @@ public class Sitzplatz {
     @Column(name = "reihe") //Nummer der Reihe in der Sitzplatz sich befindet
     private short reihe;
 
-    @Column(name = "sitzplatzNummer") //Stelle an der sich der Sitzplatz in der jeweiligen Reihe befindet
+    @Column(name = "sitzplatznummer") //Stelle an der sich der Sitzplatz in der jeweiligen Reihe befindet
     private short sitzplatzNummer;
 
     @Column(name = "sitzplatzkategorie")

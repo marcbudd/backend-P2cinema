@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class KinoNotFoundException extends Exception {
 
     public KinoNotFoundException(UUID id) {
-        super("Kino mit ID \\\"\" + id + \"\\\" nicht gefunden!");
+        super("Kino mit ID \"" + id + "\" nicht gefunden!");
     }
 
 }

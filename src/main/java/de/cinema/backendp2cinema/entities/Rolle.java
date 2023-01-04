@@ -29,6 +29,14 @@ public class Rolle {
     }
 
     //Getter und Setter
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public String getBeschreibung() {
         return beschreibung;
     }

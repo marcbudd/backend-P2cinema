@@ -9,7 +9,7 @@ import java.util.UUID;
 public class SaalNotFoundException extends Exception {
 
     public SaalNotFoundException(UUID id) {
-        super("Saal mit ID \\\"\" + id + \"\\\" nicht gefunden!");
+        super("Saal mit ID \"" + id + "\" nicht gefunden!");
     }
 
 }

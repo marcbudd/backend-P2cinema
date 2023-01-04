@@ -9,7 +9,7 @@ import java.util.UUID;
 public class FilmNotFoundException extends Exception {
 
     public FilmNotFoundException(UUID id) {
-        super("Film mit ID \\\"\" + id + \"\\\" nicht gefunden!");
+        super("Film mit ID \"" + id + "\" nicht gefunden!");
     }
 
 }

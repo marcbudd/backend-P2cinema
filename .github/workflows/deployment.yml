@@ -17,11 +17,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            export PATH=/${{ secrets.TARGET }}/apache-maven-3.8.6/bin:$PATH
-            kill -9 $(lsof -t -i:8080)
-            cd ${{ secrets.TARGET }}
-            cd backend-P2cinema
-            git pull
-            mvn clean package
-            nohup java -jar target/*.jar & git pull
+            ./deploymentscript.sh
 

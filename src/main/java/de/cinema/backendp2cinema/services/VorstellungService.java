@@ -61,7 +61,7 @@ public class VorstellungService {
 
 
     //Vorstellungen nach Filmen suchen
-    public ResponseEntity<Object> getVorstellungNachFilm(UUID filmId){
+    public ResponseEntity<Object> getVorstellungByFilm(UUID filmId){
 
         //zuerst Film aus dem Repository suchen
         Film film;
@@ -78,9 +78,9 @@ public class VorstellungService {
         if(optionalFilmList.isPresent()){
             return new ResponseEntity<>(optionalFilmList.get(), HttpStatus.OK);
         }
-        else{
-            return new ResponseEntity<>(new VorstellungNotFoundException(film), HttpStatus.NOT_FOUND);
-        }
+
+        return new ResponseEntity<>(new VorstellungNotFoundException(film), HttpStatus.NOT_FOUND);
+
 
     }
 

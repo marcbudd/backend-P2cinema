@@ -4,6 +4,7 @@ package de.cinema.backendp2cinema.controllers;
 import de.cinema.backendp2cinema.entities.Vorstellungsplatz;
 import de.cinema.backendp2cinema.exceptions.VorstellungsplatzNotFoundException;
 import de.cinema.backendp2cinema.repositories.VorstellungsplatzRepository;
+import de.cinema.backendp2cinema.services.VorstellungsplatzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +19,12 @@ import java.util.UUID;
 public class VorstellungsplatzController {
 
     VorstellungsplatzRepository vorstellungsplatzRepository;
+    VorstellungsplatzService vorstellungsplatzService;
 
     @Autowired
-    public VorstellungsplatzController(VorstellungsplatzRepository vorstellungsplatzRepository) {
+    public VorstellungsplatzController(VorstellungsplatzRepository vorstellungsplatzRepository, VorstellungsplatzService vorstellungsplatzService) {
         this.vorstellungsplatzRepository = vorstellungsplatzRepository;
+        this.vorstellungsplatzService = vorstellungsplatzService;
     }
 
     //alle Vorstellungsplätze zurückgeben
@@ -45,42 +48,64 @@ public class VorstellungsplatzController {
     }
 
     //Vorstellungsplatz hinzufügen
-    @PostMapping("/add")
-    public ResponseEntity<Vorstellungsplatz> save(@RequestBody Vorstellungsplatz newVorstellungsplatz){
-        Vorstellungsplatz addedVorstellungsplatz = vorstellungsplatzRepository.save(newVorstellungsplatz);
-        return new ResponseEntity<>(addedVorstellungsplatz, HttpStatus.CREATED);
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity<Vorstellungsplatz> save(@RequestBody Vorstellungsplatz newVorstellungsplatz){
+//        Vorstellungsplatz addedVorstellungsplatz = vorstellungsplatzRepository.save(newVorstellungsplatz);
+//        return new ResponseEntity<>(addedVorstellungsplatz, HttpStatus.CREATED);
+//    }
 
     //Vorstellungsplatz ändern
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Object> update(@PathVariable("id") UUID id, @RequestBody Vorstellungsplatz vorstellungsplatz) {
-        Optional<Vorstellungsplatz> toUpdate = vorstellungsplatzRepository.findById(id);
+//    @PutMapping("/update/{id}")
+//    public ResponseEntity<Object> update(@PathVariable("id") UUID id, @RequestBody Vorstellungsplatz vorstellungsplatz) {
+//        Optional<Vorstellungsplatz> toUpdate = vorstellungsplatzRepository.findById(id);
+//
+//        try {
+//            UUID vorstellungsplatzId = toUpdate.get().getId();
+//            vorstellungsplatz.setId(vorstellungsplatzId);
+//            vorstellungsplatzRepository.save(vorstellungsplatz);
+//            return new ResponseEntity<>(vorstellungsplatz, HttpStatus.OK);
+//
+//        }
+//        catch(NoSuchElementException e) {
+//            return new ResponseEntity<>(new VorstellungsplatzNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
+//        }
+//
+//    }
 
-        try {
-            UUID vorstellungsplatzId = toUpdate.get().getId();
-            vorstellungsplatz.setId(vorstellungsplatzId);
-            vorstellungsplatzRepository.save(vorstellungsplatz);
-            return new ResponseEntity<>(vorstellungsplatz, HttpStatus.OK);
+    //Vorstellungsplatz reservieren
+    @PutMapping("/{id}/reservieren")
+    public ResponseEntity<Object> reservieren(@PathVariable("id") UUID id){
+        return vorstellungsplatzService.reserviereSitz(id);
+    }
 
-        }
-        catch(NoSuchElementException e) {
-            return new ResponseEntity<>(new VorstellungsplatzNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
-        }
+    //Vorstellungsplatz buchen
+    @PutMapping("/{id}/buchen")
+    public ResponseEntity<Object> buchen(@PathVariable("id") UUID id){
+        return vorstellungsplatzService.bucheSitz(id);
+    }
 
+    @PutMapping("/{id}/freigeben")
+    public ResponseEntity<Object> freigeben(@PathVariable("id") UUID id){
+        return vorstellungsplatzService.befreieSitz(id);
+    }
+
+    @PutMapping("/{id}/blockieren")
+    public ResponseEntity<Object> blockieren(@PathVariable("id") UUID id){
+        return vorstellungsplatzService.blockiereSitz(id);
     }
 
     //Vorstellungsplatz nach ID löschen
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> delete(@PathVariable UUID id) {
-        Optional<Vorstellungsplatz> toDelete = vorstellungsplatzRepository.findById(id);
-        try {
-            UUID vorstellungsplatzId = toDelete.get().getId();
-            vorstellungsplatzRepository.deleteById(vorstellungsplatzId);
-            return new ResponseEntity<>(id, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(new VorstellungsplatzNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
-        }
-    }
+//    @DeleteMapping("/delete/{id}")
+//    public ResponseEntity<Object> delete(@PathVariable UUID id) {
+//        Optional<Vorstellungsplatz> toDelete = vorstellungsplatzRepository.findById(id);
+//        try {
+//            UUID vorstellungsplatzId = toDelete.get().getId();
+//            vorstellungsplatzRepository.deleteById(vorstellungsplatzId);
+//            return new ResponseEntity<>(id, HttpStatus.OK);
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(new VorstellungsplatzNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
+//        }
+//    }
 
 
 }

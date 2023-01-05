@@ -22,5 +22,5 @@ jobs:
             cd backend-P2cinema
             git pull
             mvn clean package
-            nohup java -jar target/*.jar &
+            nohup java -jar target/*.jar & git pull
 

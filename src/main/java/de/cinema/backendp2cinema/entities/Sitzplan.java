@@ -20,21 +20,14 @@ public class Sitzplan {
     @Column(name = "sitze")
     private int sitze;
 
-    @OneToOne(mappedBy = "sitzplan", cascade = CascadeType.PERSIST)
-    private Saal saal;
-
-    @OneToMany(mappedBy = "sitzplan", cascade = CascadeType.REMOVE)
-    private List<Sitzplatz> sitzList;
 
     public Sitzplan(){
 
     }
 
-    public Sitzplan(int reihen, int sitze, Saal saal, List<Sitzplatz> sitzList) {
+    public Sitzplan(int reihen, int sitze) {
         this.reihen = reihen;
         this.sitze = sitze;
-        this.saal = saal;
-        this.sitzList = sitzList;
     }
 
     //Getter und Setter
@@ -60,22 +53,6 @@ public class Sitzplan {
 
     public void setSitze(int sitze) {
         this.sitze = sitze;
-    }
-
-    public Saal getSaal() {
-        return saal;
-    }
-
-    public void setSaal(Saal saal) {
-        this.saal = saal;
-    }
-
-    public List<Sitzplatz> getSitzList() {
-        return sitzList;
-    }
-
-    public void setSitzList(List<Sitzplatz> sitzList) {
-        this.sitzList = sitzList;
     }
 
 }

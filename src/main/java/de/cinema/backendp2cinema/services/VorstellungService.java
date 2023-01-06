@@ -4,10 +4,7 @@ import de.cinema.backendp2cinema.entities.*;
 import de.cinema.backendp2cinema.enums.VorstellungsplatzStatus;
 import de.cinema.backendp2cinema.exceptions.FilmNotFoundException;
 import de.cinema.backendp2cinema.exceptions.VorstellungNotFoundException;
-import de.cinema.backendp2cinema.repositories.FilmRepository;
-import de.cinema.backendp2cinema.repositories.PreisRepository;
-import de.cinema.backendp2cinema.repositories.VorstellungRepository;
-import de.cinema.backendp2cinema.repositories.VorstellungsplatzRepository;
+import de.cinema.backendp2cinema.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,13 +29,16 @@ public class VorstellungService {
     @Autowired
     VorstellungsplatzRepository vorstellungsplatzRepository;
 
+    @Autowired
+    SitzplatzRepository sitzplatzRepository;
+
     //neue Vorstellung anlegen
     public ResponseEntity<Vorstellung> addNeueVorstellung(Vorstellung neueVorstellung){
         Vorstellung addedVorstellung = vorstellungRepository.save(neueVorstellung);
 
         //Zugehörige Vorstellungssitze nach Sitzplan erstellen
         Sitzplan sitzplan = neueVorstellung.getSaal().getSitzplan();
-        List<Sitzplatz> sitzList = sitzplan.getSitzList();
+        List<Sitzplatz> sitzList = sitzplatzRepository.findAllBySitzplan(sitzplan).get();
         for (Sitzplatz sitz: sitzList){
             Preis preis = null;
             Optional<Preis> optionalPreis = preisRepository.findBySitzplatzkategorie(sitz.getSitzplatzkategorie());

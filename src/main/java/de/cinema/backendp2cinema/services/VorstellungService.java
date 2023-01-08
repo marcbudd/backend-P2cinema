@@ -3,6 +3,7 @@ package de.cinema.backendp2cinema.services;
 import de.cinema.backendp2cinema.entities.*;
 import de.cinema.backendp2cinema.enums.VorstellungsplatzStatus;
 import de.cinema.backendp2cinema.exceptions.FilmNotFoundException;
+import de.cinema.backendp2cinema.exceptions.KeineVorstellungZuFilmException;
 import de.cinema.backendp2cinema.exceptions.VorstellungNotFoundException;
 import de.cinema.backendp2cinema.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,23 +41,28 @@ public class VorstellungService {
         Sitzplan sitzplan = neueVorstellung.getSaal().getSitzplan();
         List<Sitzplatz> sitzList = sitzplatzRepository.findAllBySitzplan(sitzplan).get();
         for (Sitzplatz sitz: sitzList){
-            Preis preis = null;
-            Optional<Preis> optionalPreis = preisRepository.findBySitzplatzkategorie(sitz.getSitzplatzkategorie());
-            if(optionalPreis.isPresent()){
-                preis = optionalPreis.get();
-            }
-
-            Vorstellungsplatz neuerVorstellungsplatz = new Vorstellungsplatz(sitz,
-                    neueVorstellung,
-                    VorstellungsplatzStatus.FREI,
-                    null,
-                    preis,
-                    null);
-
-            vorstellungsplatzRepository.save(neuerVorstellungsplatz);
+            vorstellungsplatzAnlegen(neueVorstellung, sitz);
         }
 
         return new ResponseEntity<>(addedVorstellung, HttpStatus.CREATED);
+    }
+
+
+    private void vorstellungsplatzAnlegen(Vorstellung neueVorstellung, Sitzplatz sitz) {
+        Preis preis = null;
+        Optional<Preis> optionalPreis = preisRepository.findBySitzplatzkategorie(sitz.getSitzplatzkategorie());
+        if(optionalPreis.isPresent()){
+            preis = optionalPreis.get();
+        }
+
+        Vorstellungsplatz neuerVorstellungsplatz = new Vorstellungsplatz(sitz,
+                neueVorstellung,
+                VorstellungsplatzStatus.FREI,
+                null,
+                preis,
+                null);
+
+        vorstellungsplatzRepository.save(neuerVorstellungsplatz);
     }
 
 
@@ -79,8 +85,7 @@ public class VorstellungService {
             return new ResponseEntity<>(optionalFilmList.get(), HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(new VorstellungNotFoundException(film), HttpStatus.NOT_FOUND);
-
+        return new ResponseEntity<>(new KeineVorstellungZuFilmException(filmId).getMessage(), HttpStatus.NOT_FOUND);
 
     }
 

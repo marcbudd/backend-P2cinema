@@ -73,7 +73,7 @@ public class TokenController {
             tokenRepository.deleteById(tokenId);
             return new ResponseEntity<>(id, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new TokenNotFoundException(id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new TokenNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

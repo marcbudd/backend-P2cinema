@@ -93,7 +93,7 @@ public class TicketController {
             ticketRepository.save(ticket);
             return new ResponseEntity<>(ticket, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new TicketNotFoundException(id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new TicketNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -106,7 +106,7 @@ public class TicketController {
             ticketRepository.save(ticket);
             return new ResponseEntity<>(ticket, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new TicketNotFoundException(id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new TicketNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

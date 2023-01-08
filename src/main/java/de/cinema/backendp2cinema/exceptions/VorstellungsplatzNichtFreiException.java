@@ -1,4 +1,4 @@
-package de.cinema.backendp2cinema.entities;
+package de.cinema.backendp2cinema.exceptions;
 
 import java.util.UUID;
 

@@ -1,7 +1,7 @@
 package de.cinema.backendp2cinema.services;
 
 import de.cinema.backendp2cinema.entities.Vorstellungsplatz;
-import de.cinema.backendp2cinema.entities.VorstellungsplatzNichtFreiException;
+import de.cinema.backendp2cinema.exceptions.VorstellungsplatzNichtFreiException;
 import de.cinema.backendp2cinema.enums.VorstellungsplatzStatus;
 import de.cinema.backendp2cinema.exceptions.VorstellungsplatzNichtReserviertException;
 import de.cinema.backendp2cinema.exceptions.VorstellungsplatzNotFoundException;
@@ -71,7 +71,7 @@ public class VorstellungsplatzService {
         }catch(InterruptedException e){
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }catch(NoSuchElementException f){
-            return new ResponseEntity<>(new VorstellungsplatzNotFoundException(vplatzId), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new VorstellungsplatzNotFoundException(vplatzId).getMessage(), HttpStatus.NOT_FOUND);
         }finally {
             mySemaphore.release();
         }
@@ -90,7 +90,7 @@ public class VorstellungsplatzService {
         }catch(InterruptedException e){
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }catch(NoSuchElementException f){
-            return new ResponseEntity<>(new VorstellungsplatzNotFoundException(vplatzId), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new VorstellungsplatzNotFoundException(vplatzId).getMessage(), HttpStatus.NOT_FOUND);
         }finally {
             mySemaphore.release();
         }
@@ -108,12 +108,12 @@ public class VorstellungsplatzService {
                 return new ResponseEntity<>(vplatz, HttpStatus.OK);
             }
 
-            return new ResponseEntity<>(new VorstellungsplatzNichtReserviertException(vplatzId), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new VorstellungsplatzNichtReserviertException(vplatzId).getMessage(), HttpStatus.BAD_REQUEST);
 
         }catch(InterruptedException e){
             return new ResponseEntity<>(e, HttpStatus.BAD_REQUEST);
         }catch(NoSuchElementException f){
-            return new ResponseEntity<>(new VorstellungsplatzNotFoundException(vplatzId), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new VorstellungsplatzNotFoundException(vplatzId).getMessage(), HttpStatus.NOT_FOUND);
         }finally {
             mySemaphore.release();
         }

@@ -88,7 +88,7 @@ public class TicketService {
         Optional<Ticket> optionalTicket = ticketRepository.findById(id);
 
         if (optionalTicket.isEmpty()) {
-            return new ResponseEntity<>(new TicketNotFoundException(id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new TicketNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
 
         Ticket ticket = optionalTicket.get();

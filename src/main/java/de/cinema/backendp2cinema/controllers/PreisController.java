@@ -73,7 +73,7 @@ public class PreisController {
             preisRepository.deleteById(preisId);
             return new ResponseEntity<>(id, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new PreisNotFoundException(id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new PreisNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

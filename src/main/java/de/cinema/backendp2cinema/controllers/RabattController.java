@@ -73,7 +73,7 @@ public class RabattController {
             rabattRepository.deleteById(rabattId);
             return new ResponseEntity<>(id, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new RabattNotFoundException(id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new RabattNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

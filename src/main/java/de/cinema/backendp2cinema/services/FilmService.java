@@ -30,7 +30,7 @@ public class FilmService {
 //    }
 //
 //    public Film findFilmById(UUID id) {
-//        return filmRepository.findById(id).orElseThrow(()-> new FilmNotFoundException(id));
+//        return filmRepository.findById(id).orElseThrow(()-> new FilmNotFoundException(id).getMessage());
 //    }
 //
 //    public void delete(UUID id) {

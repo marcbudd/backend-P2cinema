@@ -1,8 +1,12 @@
 package de.cinema.backendp2cinema.controllers;
 
 
+import de.cinema.backendp2cinema.entities.Vorstellung;
 import de.cinema.backendp2cinema.entities.Vorstellungsplatz;
+import de.cinema.backendp2cinema.exceptions.KeinVorstellungsplatzZuVorstellungException;
+import de.cinema.backendp2cinema.exceptions.VorstellungNotFoundException;
 import de.cinema.backendp2cinema.exceptions.VorstellungsplatzNotFoundException;
+import de.cinema.backendp2cinema.repositories.VorstellungRepository;
 import de.cinema.backendp2cinema.repositories.VorstellungsplatzRepository;
 import de.cinema.backendp2cinema.services.VorstellungsplatzService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,11 +25,13 @@ public class VorstellungsplatzController {
 
     VorstellungsplatzRepository vorstellungsplatzRepository;
     VorstellungsplatzService vorstellungsplatzService;
+    VorstellungRepository vorstellungRepository;
 
     @Autowired
-    public VorstellungsplatzController(VorstellungsplatzRepository vorstellungsplatzRepository, VorstellungsplatzService vorstellungsplatzService) {
+    public VorstellungsplatzController(VorstellungsplatzRepository vorstellungsplatzRepository, VorstellungsplatzService vorstellungsplatzService, VorstellungRepository vorstellungRepository) {
         this.vorstellungsplatzRepository = vorstellungsplatzRepository;
         this.vorstellungsplatzService = vorstellungsplatzService;
+        this.vorstellungRepository = vorstellungRepository;
     }
 
     //alle Vorstellungsplätze zurückgeben
@@ -44,6 +51,25 @@ public class VorstellungsplatzController {
             return new ResponseEntity<>(gefunden, HttpStatus.OK);
         }catch(NoSuchElementException e) {
             return new ResponseEntity<>(new VorstellungsplatzNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //Vorstellungsplätze nach Vorstellung zurückgeben
+    @GetMapping("findByVorstellung/{id}")
+    public ResponseEntity<Object> findByVorstellung(@PathVariable("id") UUID id) {
+        Optional<Vorstellung> suche = vorstellungRepository.findById(id);
+        Vorstellung gefunden;
+        try {
+            gefunden = suche.get();
+        }catch(NoSuchElementException e) {
+            return new ResponseEntity<>(new VorstellungNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
+        }
+
+        try {
+            Optional<List<Vorstellungsplatz>> optionalList = vorstellungsplatzRepository.findAllByVorstellung(gefunden);
+            return new ResponseEntity<>(optionalList.get(), HttpStatus.OK);
+        }catch(NoSuchElementException e) {
+            return new ResponseEntity<>(new KeinVorstellungsplatzZuVorstellungException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

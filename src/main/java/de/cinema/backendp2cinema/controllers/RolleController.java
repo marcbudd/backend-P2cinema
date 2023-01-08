@@ -73,7 +73,7 @@ public class RolleController {
             rolleRepository.deleteById(rolleId);
             return new ResponseEntity<>(id, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new RolleNotFoundException(id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new RolleNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

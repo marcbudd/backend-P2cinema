@@ -74,7 +74,7 @@ public class FilmController {
             filmRepository.deleteById(filmId);
             return new ResponseEntity<>(id, HttpStatus.OK);
         }catch(NoSuchElementException e){
-            return new ResponseEntity<>(new FilmNotFoundException(id), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new FilmNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 

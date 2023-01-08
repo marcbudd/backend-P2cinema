@@ -74,29 +74,29 @@ public class VorstellungsplatzController {
     }
 
     //Vorstellungsplatz hinzufügen
-//    @PostMapping("/add")
-//    public ResponseEntity<Vorstellungsplatz> save(@RequestBody Vorstellungsplatz newVorstellungsplatz){
-//        Vorstellungsplatz addedVorstellungsplatz = vorstellungsplatzRepository.save(newVorstellungsplatz);
-//        return new ResponseEntity<>(addedVorstellungsplatz, HttpStatus.CREATED);
-//    }
+    @PostMapping("/add")
+    public ResponseEntity<Vorstellungsplatz> save(@RequestBody Vorstellungsplatz newVorstellungsplatz){
+        Vorstellungsplatz addedVorstellungsplatz = vorstellungsplatzRepository.save(newVorstellungsplatz);
+        return new ResponseEntity<>(addedVorstellungsplatz, HttpStatus.CREATED);
+    }
 
     //Vorstellungsplatz ändern
-//    @PutMapping("/update/{id}")
-//    public ResponseEntity<Object> update(@PathVariable("id") UUID id, @RequestBody Vorstellungsplatz vorstellungsplatz) {
-//        Optional<Vorstellungsplatz> toUpdate = vorstellungsplatzRepository.findById(id);
-//
-//        try {
-//            UUID vorstellungsplatzId = toUpdate.get().getId();
-//            vorstellungsplatz.setId(vorstellungsplatzId);
-//            vorstellungsplatzRepository.save(vorstellungsplatz);
-//            return new ResponseEntity<>(vorstellungsplatz, HttpStatus.OK);
-//
-//        }
-//        catch(NoSuchElementException e) {
-//            return new ResponseEntity<>(new VorstellungsplatzNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
-//        }
-//
-//    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Object> update(@PathVariable("id") UUID id, @RequestBody Vorstellungsplatz vorstellungsplatz) {
+        Optional<Vorstellungsplatz> toUpdate = vorstellungsplatzRepository.findById(id);
+
+        try {
+            UUID vorstellungsplatzId = toUpdate.get().getId();
+            vorstellungsplatz.setId(vorstellungsplatzId);
+            vorstellungsplatzRepository.save(vorstellungsplatz);
+            return new ResponseEntity<>(vorstellungsplatz, HttpStatus.OK);
+
+        }
+        catch(NoSuchElementException e) {
+            return new ResponseEntity<>(new VorstellungsplatzNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
+        }
+
+    }
 
     //Vorstellungsplatz reservieren
     @PutMapping("/{id}/reservieren")
@@ -121,17 +121,17 @@ public class VorstellungsplatzController {
     }
 
     //Vorstellungsplatz nach ID löschen
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<Object> delete(@PathVariable UUID id) {
-//        Optional<Vorstellungsplatz> toDelete = vorstellungsplatzRepository.findById(id);
-//        try {
-//            UUID vorstellungsplatzId = toDelete.get().getId();
-//            vorstellungsplatzRepository.deleteById(vorstellungsplatzId);
-//            return new ResponseEntity<>(id, HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(new VorstellungsplatzNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Object> delete(@PathVariable UUID id) {
+        Optional<Vorstellungsplatz> toDelete = vorstellungsplatzRepository.findById(id);
+        try {
+            UUID vorstellungsplatzId = toDelete.get().getId();
+            vorstellungsplatzRepository.deleteById(vorstellungsplatzId);
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new VorstellungsplatzNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 
 
 }

@@ -53,34 +53,34 @@ public class TicketController {
     }
 
     //Ticket ändern
-//    @PutMapping("/update/{id}")
-//    public ResponseEntity<Object> update(@PathVariable("id") UUID id, @RequestBody Ticket ticket) {
-//        Optional<Ticket> toUpdate = ticketRepository.findById(id);
-//
-//        try {
-//            UUID ticketId = toUpdate.get().getId();
-//            ticket.setId(ticketId);
-//            ticketRepository.save(ticket);
-//            return new ResponseEntity<>(ticket, HttpStatus.OK);
-//        }catch(NoSuchElementException e){
-//            return new ResponseEntity<>(new TicketNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
-//        }
-//
-//    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Object> update(@PathVariable("id") UUID id, @RequestBody Ticket ticket) {
+        Optional<Ticket> toUpdate = ticketRepository.findById(id);
+
+        try {
+            UUID ticketId = toUpdate.get().getId();
+            ticket.setId(ticketId);
+            ticketRepository.save(ticket);
+            return new ResponseEntity<>(ticket, HttpStatus.OK);
+        }catch(NoSuchElementException e){
+            return new ResponseEntity<>(new TicketNotFoundException(id).getMessage(), HttpStatus.NOT_FOUND);
+        }
+
+    }
 
 
     //Ticket nach ID löschen
-//    @DeleteMapping("/delete/{id}")
-//    public ResponseEntity<Object> delete(@PathVariable UUID id) {
-//        Optional<Ticket> toDelete = ticketRepository.findById(id);
-//        try{
-//            UUID ticketId = toDelete.get().getId();
-//            ticketRepository.deleteById(ticketId);
-//            return new ResponseEntity<>(id, HttpStatus.OK);
-//        }catch(NoSuchElementException e){
-//            return new ResponseEntity<>(new TicketNotFoundException(id), HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Object> delete(@PathVariable UUID id) {
+        Optional<Ticket> toDelete = ticketRepository.findById(id);
+        try{
+            UUID ticketId = toDelete.get().getId();
+            ticketRepository.deleteById(ticketId);
+            return new ResponseEntity<>(id, HttpStatus.OK);
+        }catch(NoSuchElementException e){
+            return new ResponseEntity<>(new TicketNotFoundException(id), HttpStatus.NOT_FOUND);
+        }
+    }
 
 
     //Ticket bezahlen

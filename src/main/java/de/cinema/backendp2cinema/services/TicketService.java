@@ -80,6 +80,11 @@ public class TicketService {
         this.gesamtpreisBerechnen(ticket);
         Ticket addedTicket = ticketRepository.save(ticket);
 
+        //ticketId zu jedem Vplatz hinzufügen
+        for(Vorstellungsplatz vplatz: vplatzList){
+            vplatz.setTicketId(addedTicket.getId());
+            vorstellungsplatzRepository.save(vplatz);
+        }
 
         return new ResponseEntity<>(addedTicket, HttpStatus.CREATED);
     }

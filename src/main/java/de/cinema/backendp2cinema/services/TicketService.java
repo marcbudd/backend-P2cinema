@@ -69,6 +69,8 @@ public class TicketService {
         Date buchungDatum = new Date(System.currentTimeMillis());
         Time buchungZeit = new Time(System.currentTimeMillis());
 
+        System.out.println(vplatzList);
+
         //Ticket Objekt erstellen
         Ticket ticket = new Ticket(null, benutzer, buchungDatum, buchungZeit, TicketStatus.RESERVIERT, vplatzList, 0.0);
 
@@ -119,7 +121,7 @@ public class TicketService {
 
                 gesamtpreis = gesamtpreis + vplatzPreisMitRabatt;
             }catch(NullPointerException e){
-                gesamtpreis = vplatz.getPreis().getPreis();
+                gesamtpreis = gesamtpreis  + vplatz.getPreis().getPreis();
             }
         }
 

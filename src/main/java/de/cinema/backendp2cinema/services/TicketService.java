@@ -109,13 +109,18 @@ public class TicketService {
     private void gesamtpreisBerechnen(Ticket ticket){
         double gesamtpreis = 0.0;
         for(Vorstellungsplatz vplatz: ticket.getVorstellungsplatzList()){
-            double vplatzPreis = vplatz.getPreis().getPreis();
-            double vplatzRabattAbsolut = vplatz.getRabatt().getRabattAbsolut();
-            double vplatzRabattProzentual = vplatz.getRabatt().getRabattProzentual();
+            try {
+                double vplatzPreis = vplatz.getPreis().getPreis();
 
-            double vplatzPreisMitRabatt = (vplatzPreis * (1.0 - vplatzRabattProzentual)) - vplatzRabattAbsolut;
+                double vplatzRabattAbsolut = vplatz.getRabatt().getRabattAbsolut();
+                double vplatzRabattProzentual = vplatz.getRabatt().getRabattProzentual();
 
-            gesamtpreis = gesamtpreis + vplatzPreisMitRabatt;
+                double vplatzPreisMitRabatt = (vplatzPreis * (1.0 - vplatzRabattProzentual)) - vplatzRabattAbsolut;
+
+                gesamtpreis = gesamtpreis + vplatzPreisMitRabatt;
+            }catch(NullPointerException e){
+                gesamtpreis = vplatz.getPreis().getPreis();
+            }
         }
 
         ticket.setGesamtpreis(gesamtpreis);
